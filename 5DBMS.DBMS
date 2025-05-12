@@ -1,0 +1,292 @@
+SQL> CREATE TABLE CUST(
+  2  C_ID INT,
+  3  C_NAME VARCHAR(20),
+  4  CONTACT_N VARCHAR(20),
+  5  ADDRESS VARCHAR(20),
+  6  CITY VARCHAR(20),
+  7  POSTALCODE VARCHAR(20),
+  8  COUNTRY VARCHAR(20)
+  9  );
+
+Table created.
+
+SQL> INSERT INTO CUST VALUES('1','CAROL','RZ-E STR-M','LONDON','
+F5520
+SQL> INSERT INTO CUSTOMERS VALUES('1','MARIO','CAROL','RZ-E STR-M','LONDON','F55201','UK');
+INSERT INTO CUSTOMERS VALUES('1','MARIO','CAROL','RZ-E STR-M','LONDON','F55201','UK')
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> INSERT INTO CUST VALUES('1','MARIO','CAROL','RZ-E STR-M','LONDON','F55201','UK');
+
+1 row created.
+
+SQL> INSERT INTO CUST VALUES('2','CHARLIE','ANTONIO','MATADEROS','DF','05021','MEXICO');
+
+1 row created.
+
+SQL> INSERT INTO CUST VALUES('3','RON','ANA','CONSTRUCTIONS','KF','05032','MEXICO');
+
+1 row created.
+
+SQL> SELECT * FROM CUST;
+
+      C_ID C_NAME               CONTACT_N            ADDRESS
+---------- -------------------- -------------------- --------------------
+CITY                 POSTALCODE           COUNTRY
+-------------------- -------------------- --------------------
+         1 MARIO                CAROL                RZ-E STR-M
+LONDON               F55201               UK
+
+         2 CHARLIE              ANTONIO              MATADEROS
+DF                   05021                MEXICO
+
+         3 RON                  ANA                  CONSTRUCTIONS
+KF                   05032                MEXICO
+
+
+SQL> CREATE TABLE ORDERS(
+  2  O_ID INT,
+  3  C_ID INT,
+  4  EMP_ID,
+  5
+SQL> CREATE TABLE ORDERS(
+  2  O_ID INT,
+  3  C_ID INT,
+  4  EMP_ID INT,
+  5  O_DATE DATE,
+  6  SHIPPERid INT
+  7  );
+CREATE TABLE ORDERS(
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> CREATE TABLE ORDER(
+  2  O_ID INT,
+  3  C_ID INT,
+  4  EMP_ID INT,
+  5  O_DATE DATE,
+  6  SHIPPERid INT
+  7  );
+CREATE TABLE ORDER(
+             *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> CREATE TABLE NEWORDER(
+  2  O_ID INT,
+  3  C_ID INT,
+  4  EMP_ID INT,
+  5  O_DATE DATE,
+  6  SHIPPERid INT
+  7  );
+
+Table created.
+
+SQL> INSERT INTO NEWORDER VALUES('201','1','02','2020-09-19',12);
+INSERT INTO NEWORDER VALUES('201','1','02','2020-09-19',12)
+                                           *
+ERROR at line 1:
+ORA-01861: literal does not match format string
+
+
+SQL> INSERT INTO NEWORDER VALUES('201','1','02',DATE('2020-09-19','YYYY-MM-DD'),12);
+INSERT INTO NEWORDER VALUES('201','1','02',DATE('2020-09-19','YYYY-MM-DD'),12)
+                                           *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> INSERT INTO NEWORDER VALUES('201','1','02',O_DATE('2020-09-19','YYYY-MM-DD'),12);
+INSERT INTO NEWORDER VALUES('201','1','02',O_DATE('2020-09-19','YYYY-MM-DD'),12)
+                                           *
+ERROR at line 1:
+ORA-00904: "O_DATE": invalid identifier
+
+
+SQL> INSERT INTO NEWORDER VALUES(201,1,02,DATE('2020-09-19','YYYY-MM-DD'),12);
+INSERT INTO NEWORDER VALUES(201,1,02,DATE('2020-09-19','YYYY-MM-DD'),12)
+                                     *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> INSERT INTO NEWORDER VALUES(201,1,02,TO_DATE('2020-09-19','YYYY-MM-DD'),12);
+
+1 row created.
+
+SQL> INSERT INTO NEWORDER VALUES(202,2,04,TO_DATE('2021-04-13','YYYY-MM-DD'),14);
+
+1 row created.
+
+SQL> INSERT INTO NEWORDER VALUES(203,3,06,TO_DATE('2022-04-13','YYYY-MM-DD'),16);
+
+1 row created.
+
+SQL> SELECT * FROM NEWORDER;
+
+      O_ID       C_ID     EMP_ID O_DATE     SHIPPERID
+---------- ---------- ---------- --------- ----------
+       201          1          2 19-SEP-20         12
+       202          2          4 13-APR-21         14
+       203          3          6 13-APR-22         16
+
+SQL> SELECT * FROM CUST;
+
+      C_ID C_NAME               CONTACT_N            ADDRESS
+---------- -------------------- -------------------- --------------------
+CITY                 POSTALCODE           COUNTRY
+-------------------- -------------------- --------------------
+         1 MARIO                CAROL                RZ-E STR-M
+LONDON               F55201               UK
+
+         2 CHARLIE              ANTONIO              MATADEROS
+DF                   05021                MEXICO
+
+         3 RON                  ANA                  CONSTRUCTIONS
+KF                   05032                MEXICO
+
+
+SQL> SELECT C.C_ID,C.COUNTRY,O.O_ID
+  2  FROM CUST C
+  3  INNER JOIN NEWORDER O
+  4  ON(C.C_ID=O.C_ID);
+
+      C_ID COUNTRY                    O_ID
+---------- -------------------- ----------
+         1 UK                          201
+         2 MEXICO                      202
+         3 MEXICO                      203
+
+SQL> SELECT C.C_ID,C.COUNTRY,O.O_ID
+  2  FROM CUST C
+  3  LEFT OUTER JOIN NEWORDER O
+  4  ON(C.C_ID=O.C_ID);
+
+      C_ID COUNTRY                    O_ID
+---------- -------------------- ----------
+         1 UK                          201
+         2 MEXICO                      202
+         3 MEXICO                      203
+
+SQL> SELECT *
+  2  FROM CUST C
+  3  FULL OUTER JOIN NEWORDER O
+  4  ON(C.C_ID=O.C_ID);
+
+      C_ID C_NAME               CONTACT_N            ADDRESS
+---------- -------------------- -------------------- --------------------
+CITY                 POSTALCODE           COUNTRY                    O_ID
+-------------------- -------------------- -------------------- ----------
+      C_ID     EMP_ID O_DATE     SHIPPERID
+---------- ---------- --------- ----------
+         1 MARIO                CAROL                RZ-E STR-M
+LONDON               F55201               UK                          201
+         1          2 19-SEP-20         12
+
+         2 CHARLIE              ANTONIO              MATADEROS
+DF                   05021                MEXICO                      202
+         2          4 13-APR-21         14
+
+      C_ID C_NAME               CONTACT_N            ADDRESS
+---------- -------------------- -------------------- --------------------
+CITY                 POSTALCODE           COUNTRY                    O_ID
+-------------------- -------------------- -------------------- ----------
+      C_ID     EMP_ID O_DATE     SHIPPERID
+---------- ---------- --------- ----------
+
+         3 RON                  ANA                  CONSTRUCTIONS
+KF                   05032                MEXICO                      203
+         3          6 13-APR-22         16
+
+
+SQL> SELECT C.C_ID,C.COUNTRY,O.O_ID
+  2  FROM CUST C
+  3  FULL OUTER JOIN NEWORDER O
+  4  ON(C.C_ID=O.C_ID);
+
+      C_ID COUNTRY                    O_ID
+---------- -------------------- ----------
+         1 UK                          201
+         2 MEXICO                      202
+         3 MEXICO                      203
+
+SQL> SELECT C.C_ID,C.CITY,O.O_ID
+  2  FROM CUST C
+  3  SELF JOIN NEWORDER O
+  4  ON(C.C_ID=O.C_ID);
+SELF JOIN NEWORDER O
+*
+ERROR at line 3:
+ORA-00933: SQL command not properly ended
+
+
+SQL> SELECT C.C_ID,C.COUNTRY,O.O_ID AS NEW
+  2  FROM CUST C
+  3  NEWORDER O
+  4  WHERE C.C_ID=O.C_ID;
+NEWORDER O
+*
+ERROR at line 3:
+ORA-00933: SQL command not properly ended
+
+
+SQL> SELECT C.C_ID,C.COUNTRY,O.O_ID AS NEW
+  2  FROM CUST C,
+  3  NEWORDER O
+  4  WHERE C.C_ID=O.C_ID;
+
+      C_ID COUNTRY                     NEW
+---------- -------------------- ----------
+         1 UK                          201
+         2 MEXICO                      202
+         3 MEXICO                      203
+
+SQL> SELECT C.C_ID,C.CITY,O.O_ID
+  2
+SQL> SELECT C.C_ID,C.CITY,O.O_ID
+  2  WHERE C.C_ID!=O.C_ID;
+WHERE C.C_ID!=O.C_ID
+*
+ERROR at line 2:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> SELECT C.C_ID,C.COUNTRY,O.O_ID FROM CUST C,NEWORDER O;
+
+      C_ID COUNTRY                    O_ID
+---------- -------------------- ----------
+         1 UK                          201
+         1 UK                          202
+         1 UK                          203
+         2 MEXICO                      201
+         2 MEXICO                      202
+         2 MEXICO                      203
+         3 MEXICO                      201
+         3 MEXICO                      202
+         3 MEXICO                      203
+
+9 rows selected.
+
+SQL> SELECT C.C_NAME,C.COUNTRY FROM CUST C NATURAL JOIN NEWORDER;
+
+C_NAME               COUNTRY
+-------------------- --------------------
+MARIO                UK
+CHARLIE              MEXICO
+RON                  MEXICO
+
+SQL> SELECT C.C_NAME,C.COUNTRY,O.O_ID FROM CUST C NATURAL JOIN NEWORDER O;
+
+C_NAME               COUNTRY                    O_ID
+-------------------- -------------------- ----------
+MARIO                UK                          201
+CHARLIE              MEXICO                      202
+RON                  MEXICO                      203
+
+SQL>

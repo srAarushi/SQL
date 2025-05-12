@@ -1,0 +1,254 @@
+SQL> connect
+Enter user-name: SYSTEM
+Enter password:
+ERROR:
+ORA-28001: the password has expired
+
+
+Changing password for SYSTEM
+New password:
+Retype new password:
+Password changed
+Connected.
+SQL> create user dbms
+  2
+SQL> grant all privileges to dbms;
+
+Grant succeeded.
+
+SQL> CREATE TABLE L_Product
+  2  (p_id varchar(20) PRIMARY KEY),
+  3  ;
+(p_id varchar(20) 
+PRIMARY KEY),
+                              *
+ERROR at line 2:
+ORA-00922: missing or invalid option
+
+
+SQL> CREATE TABLE L_Product
+  2  (p_id varchar(20) NOT NULL,
+  3  VEND_ID VARCHAR(10) NOT NULL,
+  4  COST NUMBER(10,2),
+  5  PRIMARY KEY(p_id,VEND_ID));
+
+Table created.
+
+SQL> DESC L_Product;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ P_ID                                      NOT NULL VARCHAR2(20)
+ VEND_ID                                   NOT NULL VARCHAR2(10)
+ COST                                               NUMBER(10,2)
+
+SQL> ALTER TABLE L_Product
+  2  ADD P_n VARCHAR(20);
+
+Table altered.
+
+SQL> DESC L_Product;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ P_ID                                      NOT NULL VARCHAR2(20)
+ VEND_ID                                   NOT NULL VARCHAR2(10)
+ COST                                               NUMBER(10,2)
+ P_N                                                VARCHAR2(20)
+
+SQL> CREATE TABLE COURSE(
+  2  C_ID NUMBER PRIMARY KEY,
+  3  NAME VARCHAR(20),
+  4  CREDIT NUMBER DEFAULT '4',
+  5  LAB_EXIST VARCHAR(10) NOT NULL,
+  6  Description VARCHAR(20) NULL
+  7  );
+
+Table created.
+
+SQL> DESC COURSE
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ C_ID                                      NOT NULL NUMBER
+ NAME                                               VARCHAR2(20)
+ CREDIT                                             NUMBER
+ LAB_EXIST                                 NOT NULL VARCHAR2(10)
+ DESCRIPTION                                        VARCHAR2(20)
+
+SQL> CREATE TABLE CLASS(
+  2  ROOM_NO NUMBER NOT NULL,
+  3  NAME VARCHAR(20),
+  4  CAPACITY NUMBER DEFAULT '50',
+  5  PROJECTOR VARCHAR(5)
+  6  );
+
+Table created.
+
+SQL> DESC CLASS
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROOM_NO                                   NOT NULL NUMBER
+ NAME                                               VARCHAR2(20)
+ CAPACITY                                           NUMBER
+ PROJECTOR                                          VARCHAR2(5)
+
+SQL> CREATE TABLE SEM(
+  2
+SQL> DROP TABLE CLASS;
+
+Table dropped.
+
+SQL> CREATE TABLE CLASS(
+  2   ROOM_NO NUMBER NOT NULL PRIMARY KEY,
+  3   NAME VARCHAR(20),
+  4   CAPACITY NUMBER DEFAULT '50',
+  5  PROJECTOR VARCHAR(5)
+  6  );
+
+Table created.
+
+SQL> CREATE TABLE SEMESTER(
+  2  S_ID NUMBER PRIMARY KEY,
+  3   NAME VARCHAR(30),
+  4  TYPE VARCHAR(10) NOT NULL
+  5  );
+
+Table created.
+
+SQL> CREATE TABLE TIMETABLE(
+  2  TT_ID NUMBER PRIMARY KEY,
+  3  NAME VARCHAR(20) NOT NULL,
+  4
+SQL> CREATE TABLE TIMETABLE(
+  2  TT_ID NUMBER PRIMARY KEY,
+  3  DAY VARCHAR(10),
+  4  TIME_FROM NUMBER(2,2) ,
+  5  TIME_TO NUMBER(2,2)
+  6  );
+
+Table created.
+
+SQL> CREATE TABLE SECTION(
+  2  SECTION_ID NUMBER PRIMARY KEY,
+  3  NAME VARCHAR(20) NOT NULL,
+  4  ADMISSION_Y NUMBER NOT NULL,
+  5   CAPACITY NUMBER DEFAULT '50'
+  6  );
+
+Table created.
+
+SQL> CREATE TABLE COURSE_SEM_REL(
+  2  COURSE_SEM_REL_ID NUMBER PRIMARY KEY,
+  3  C_ID NUMBER,
+  4  S_ID NUMBER NOT NULL
+  5  );
+
+Table created.
+
+SQL> DROP TABLE COURSE;
+
+Table dropped.
+
+SQL> CREATE TABLE COURSE(
+  2  C_ID NUMBER PRIMARY KEY,
+  3  NAME VARCHAR(20),
+  4  CREDIT NUMBERNOT NULL,
+  5  LAB_EXIST VARCHAR(10) NOT NULL,
+  6   Description VARCHAR(20) NULL,
+  7  CONSTRAINT CREDIT CHECK(CREDIT > 2)
+  8  );
+CREDIT NUMBERNOT NULL,
+       *
+ERROR at line 4:
+ORA-00902: invalid datatype
+
+
+SQL> CREATE TABLE COURSE(
+  2  C_ID NUMBER PRIMARY KEY,
+  3  NAME VARCHAR(20),
+  4  CREDIT NUMBER NOT NULL,
+  5  LAB_EXIST VARCHAR(10) NOT NULL,
+  6   Description VARCHAR(20) NULL,
+  7  CONSTRAINT CREDIT CHECK(CREDIT > 2)
+  8  );
+
+Table created.
+
+SQL> DESC COURSE
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ C_ID                                      NOT NULL NUMBER
+ NAME                                               VARCHAR2(20)
+ CREDIT                                    NOT NULL NUMBER
+ LAB_EXIST                                 NOT NULL VARCHAR2(10)
+ DESCRIPTION                                        VARCHAR2(20)
+
+SQL> DESC SECTION;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SECTION_ID                                NOT NULL NUMBER
+ NAME                                      NOT NULL VARCHAR2(20)
+ ADMISSION_Y                               NOT NULL NUMBER
+ CAPACITY                                           NUMBER
+
+SQL> DESC TIMETABLE;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TT_ID                                     NOT NULL NUMBER
+ DAY                                                VARCHAR2(10)
+ TIME_FROM                                          NUMBER(2,2)
+ TIME_TO                                            NUMBER(2,2)
+
+SQL> DESC COURSE_SEM_REL;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COURSE_SEM_REL_ID                         NOT NULL NUMBER
+ C_ID                                               NUMBER
+ S_ID                                      NOT NULL NUMBER
+
+SQL> DESC SEMESTER
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ S_ID                                      NOT NULL NUMBER
+ NAME                                               VARCHAR2(30)
+ TYPE                                      NOT NULL VARCHAR2(10)
+
+SQL> DESC CLASS
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROOM_NO                                   NOT NULL NUMBER
+ NAME                                               VARCHAR2(20)
+ CAPACITY                                           NUMBER
+ PROJECTOR                                          VARCHAR2(5)
+SQL> INSERT INTO SEMESTER VALUES(101,'SPRING','REGULAR');
+
+1 row created.
+
+SQL> INSERT INTO SEMESTER VALUES(121,'AUTUMN','BACK');
+
+1 row created.
+
+SQL> SELECT * FROM SEMESTER;
+
+      S_ID NAME                           TYPE
+---------- ------------------------------ ----------
+       101 SPRING                         REGULAR
+       121 AUTUMN                         BACK
+
+SQL> UPDATE SEMESTER SET TYPE = 'REGULAR' WHERE S_ID = '121';
+
+1 row updated.
+
+SQL> SELECT * FROM SEMESTER;
+
+      S_ID NAME                           TYPE
+---------- ------------------------------ ----------
+       101 SPRING                         REGULAR
+       121 AUTUMN                         REGULAR
+
+SQL>
+SQL> INSERT INTO SEMESTER VALUES(111,'AUTUMN','REGULAR');
+
+1 row created.
+
+SQL> DELETE FROM SEMESTER WHERE S_ID = '111';
+
+1 row deleted.

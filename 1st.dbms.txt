@@ -1,0 +1,489 @@
+ CONNECT
+Enter user-name: SYSTEM
+Enter password:
+ERROR:
+ORA-28002: the password will expire within 1 days
+
+
+Connected.
+SQL> GRANT ALL PRIVILAGES TO dbms;
+GRANT ALL PRIVILAGES TO dbms
+      *
+ERROR at line 1:
+ORA-00990: missing or invalid privilege
+
+
+SQL> grant all privilages to dbms;
+grant all privilages to dbms
+      *
+ERROR at line 1:
+ORA-00990: missing or invalid privilege
+
+
+SQL> create user dbms
+  2
+SQL> create user dbms identified by kiit;
+create user dbms identified by kiit
+            *
+ERROR at line 1:
+ORA-01920: user name 'DBMS' conflicts with another user or role name
+
+
+SQL> grant all privilages to dbms;
+grant all privilages to dbms
+      *
+ERROR at line 1:
+ORA-00990: missing or invalid privilege
+
+
+SQL> grant all privileges to dbms;
+
+Grant succeeded.
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_ID                                    NOT NULL NUMBER(38)
+ F_NAME                                             VARCHAR2(50)
+ GENDER                                             VARCHAR2(10)
+ DESG                                               VARCHAR2(20)
+ EMAIL                                              VARCHAR2(20)
+
+SQL> select * from employee;
+
+no rows selected
+
+SQL> desc STUDENT;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ST_ID                                     NOT NULL NUMBER(38)
+ F_NAME                                             VARCHAR2(50)
+ DOB                                                DATE
+ GENDER                                             VARCHAR2(10)
+
+SQL> desc PRODUCT;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRO_ID                                    NOT NULL NUMBER(38)
+ P_NAME                                             VARCHAR2(50)
+ PRICE                                              NUMBER(10,2)
+ QUANTITY                                           NUMBER(38)
+
+SQL> select * from STUDENT;
+
+no rows selected
+
+SQL> INSERT INTO employee (EMP_ID,F_NAME,GENDER,DESG,EMAIL) VALUES('01','AARUSHI','FEMALE','CEO','123@gmail.com')
+  2  ;
+
+1 row created.
+
+SQL> select * from STUDENT;
+
+no rows selected
+
+SQL> Select*from STUDENT;
+
+no rows selected
+
+SQL> Select * from employee;
+
+    EMP_ID F_NAME                                             GENDER
+---------- -------------------------------------------------- ----------
+DESG                 EMAIL
+-------------------- --------------------
+         1 AARUSHI                                            FEMALE
+CEO                  123@gmail.com
+
+
+SQL> INSERT INTO employee (EMP_ID,F_NAME,GENDER,DESG,EMAIL) VALUES('02','ASHI','FEMALE','INTERN','ZUUU@gmail.com');
+
+1 row created.
+
+SQL> INSERT INTO employee (EMP_ID,F_NAME,GENDER,DESG,EMAIL) VALUES('03','ARANV','MALE','INTERN','hmm@gmail.com');
+
+1 row created.
+
+SQL> INSERT INTO employee (EMP_ID,F_NAME,GENDER,DESG,EMAIL) VALUES('04','KARAN','MALE','MANGER','SING@gmail.com');
+
+1 row created.
+
+SQL> INSERT INTO employee (EMP_ID,F_NAME,GENDER,DESG,EMAIL) VALUES('05','KANIKA','FEMALE','GENERAL MANGER','kp@gmail.com');
+
+1 row created.
+
+SQL> Select * from employee;
+
+    EMP_ID F_NAME                                             GENDER
+---------- -------------------------------------------------- ----------
+DESG                 EMAIL
+-------------------- --------------------
+         1 AARUSHI                                            FEMALE
+CEO                  123@gmail.com
+
+         2 ASHI                                               FEMALE
+INTERN               ZUUU@gmail.com
+
+         3 ARANV                                              MALE
+INTERN               hmm@gmail.com
+
+
+    EMP_ID F_NAME                                             GENDER
+---------- -------------------------------------------------- ----------
+DESG                 EMAIL
+-------------------- --------------------
+         4 KARAN                                              MALE
+MANGER               SING@gmail.com
+
+         5 KANIKA                                             FEMALE
+GENERAL MANGER       kp@gmail.com
+
+
+SQL> desc STUDENT;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ST_ID                                     NOT NULL NUMBER(38)
+ F_NAME                                             VARCHAR2(50)
+ DOB                                                DATE
+ GENDER                                             VARCHAR2(10)
+
+SQL> INSERT INTO STUDENT (ST_ID,F_NAME,DOB,GENDER) VALUES('1001','SIKHA','FEMALE')
+     INSERT INTO STUDENT (ST_ID,F_NAME,DOB,GENDER) VALUESINSERT INTO STUDENT (ST_ID,F_NAME,DOB,GENDER) VALUES('1001','SIKHA','2004-03-30','FEMALE');
+INSERT INTO STUDENT (ST_ID,F_NAME,DOB,GENDER) VALUES('1001','SIKHA','2004-03-30','FEMALE')
+                                                                    *
+ERROR at line 1:
+ORA-01861: literal does not match format string
+
+
+SQL> INSERT INTO STUDENT (ST_ID,F_NAME,DOB,GENDER) VALUES('1001','SIKHA',DOB('FEB 3 ,2002',MON DD ,YYYY),'FEMALE');
+INSERT INTO STUDENT (ST_ID,F_NAME,DOB,GENDER) VALUES('1001','SIKHA',DOB('FEB 3 ,2002',MON DD ,YYYY),'FEMALE')
+                                                                                          *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> INSERT INTO STUDENT (ST_ID,F_NAME,DOB,GENDER) VALUES('1001','SIKHA','10-Dec-2002','FEMALE');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT VALUES('1002','Sanaya','11-Nov-2001','FEMALE');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT VALUES('2003','Rahul','21-March-2001','MALE');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT VALUES('2005','Kartik','25-April-2005','MALE');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT VALUES('2004','Kanan','07-May-2005','MALE');
+
+1 row created.
+
+SQL> Select * from STUDENT;
+
+     ST_ID F_NAME                                             DOB
+---------- -------------------------------------------------- ---------
+GENDER
+----------
+      1001 SIKHA                                              10-DEC-02
+FEMALE
+
+      1002 Sanaya                                             11-NOV-01
+FEMALE
+
+      2003 Rahul                                              21-MAR-01
+MALE
+
+
+     ST_ID F_NAME                                             DOB
+---------- -------------------------------------------------- ---------
+GENDER
+----------
+      2005 Kartik                                             25-APR-05
+MALE
+
+      2004 Kanan                                              07-MAY-05
+MALE
+
+
+SQL> desc PRODUCT;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRO_ID                                    NOT NULL NUMBER(38)
+ P_NAME                                             VARCHAR2(50)
+ PRICE                                              NUMBER(10,2)
+ QUANTITY                                           NUMBER(38)
+
+SQL> desc STUDENT;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ST_ID                                     NOT NULL NUMBER(38)
+ F_NAME                                             VARCHAR2(50)
+ DOB                                                DATE
+ GENDER                                             VARCHAR2(10)
+
+SQL> desc PRODUCT;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRO_ID                                    NOT NULL NUMBER(38)
+ P_NAME                                             VARCHAR2(50)
+ PRICE                                              NUMBER(10,2)
+ QUANTITY                                           NUMBER(38)
+
+SQL> INSERT INTO STUDENT VALUES('1011','LUX SPLASH','250','20');
+INSERT INTO STUDENT VALUES('1011','LUX SPLASH','250','20')
+                                               *
+ERROR at line 1:
+ORA-01861: literal does not match format string
+
+
+SQL> INSERT INTO STUDENT VALUES('1011','LUX SPLASH','250.02','20');
+INSERT INTO STUDENT VALUES('1011','LUX SPLASH','250.02','20')
+                                               *
+ERROR at line 1:
+ORA-01861: literal does not match format string
+
+
+SQL> INSERT INTO STUDENT VALUES('11','LUX SPLASH','250.02','20');
+INSERT INTO STUDENT VALUES('11','LUX SPLASH','250.02','20')
+                                             *
+ERROR at line 1:
+ORA-01861: literal does not match format string
+
+
+SQL> DROP PRODUCT;
+DROP PRODUCT
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option
+
+
+SQL> INSERT INTO PRODUCT VALUES('111','LUX SPLASH','250.02','20');
+
+1 row created.
+
+SQL> desc PRODUCT;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRO_ID                                    NOT NULL NUMBER(38)
+ P_NAME                                             VARCHAR2(50)
+ PRICE                                              NUMBER(10,2)
+ QUANTITY                                           NUMBER(38)
+
+SQL> INSERT INTO PRODUCT VALUES('122','AMUL','150.00','15');
+
+1 row created.
+
+SQL> INSERT INTO PRODUCT VALUES('152','DARK CHOCOLATE','100.10','35');
+
+1 row created.
+
+SQL> INSERT INTO PRODUCT VALUES('143','DARK FANTASY','56.35','50');
+
+1 row created.
+
+SQL> INSERT INTO PRODUCT VALUES('134','CHOCOPIE','120.08','42');
+
+1 row created.
+
+SQL> Select * from PRODUCT;
+
+    PRO_ID P_NAME                                                  PRICE
+---------- -------------------------------------------------- ----------
+  QUANTITY
+----------
+       111 LUX SPLASH                                             250.02
+        20
+
+       122 AMUL                                                      150
+        15
+
+       152 DARK CHOCOLATE                                          100.1
+        35
+
+
+    PRO_ID P_NAME                                                  PRICE
+---------- -------------------------------------------------- ----------
+  QUANTITY
+----------
+       143 DARK FANTASY                                            56.35
+        50
+
+       134 CHOCOPIE                                               120.08
+        42
+
+
+SQL> desc CUSTOMER;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ C_ID                                      NOT NULL NUMBER(38)
+ C_NAME                                             VARCHAR2(50)
+ DOB                                                DATE
+ GENDER                                             VARCHAR2(10)
+ PHONE                                              VARCHAR2(10)
+
+SQL> INSERT INTO CUSTOMER VALUES('10','GAYU','9-DEC-2020','F','0685634267');
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER VALUES('20','KAVYA','30-MAY-2020','F','6085689467');
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER VALUES('30','SWASTIK','12-MARCH-2021','M','9015689467');
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER VALUES('40','KESHAV','12-APRIL-2022','M','9115689467');
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER VALUES('50','AKSHAT','22-OCTOBER-2022','M','8215689467');
+
+1 row created.
+
+SQL> Select * from CUSTOMER;
+
+      C_ID C_NAME                                             DOB
+---------- -------------------------------------------------- ---------
+GENDER     PHONE
+---------- ----------
+        10 GAYU                                               09-DEC-20
+F          0685634267
+
+        20 KAVYA                                              30-MAY-20
+F          6085689467
+
+        30 SWASTIK                                            12-MAR-21
+M          9015689467
+
+
+      C_ID C_NAME                                             DOB
+---------- -------------------------------------------------- ---------
+GENDER     PHONE
+---------- ----------
+        40 KESHAV                                             12-APR-22
+M          9115689467
+
+        50 AKSHAT                                             22-OCT-22
+M          8215689467
+
+
+SQL> desc ACCOUNT;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ A_ID                                      NOT NULL NUMBER(38)
+ ACC_TYPE                                           VARCHAR2(20)
+ BALANCE                                            NUMBER(10,2)
+ C_ID                                               NUMBER(38)
+
+SQL> INSERT INTO CUSTOMER VALUES('140','SAVINGS','12022','911');
+INSERT INTO CUSTOMER VALUES('140','SAVINGS','12022','911')
+            *
+ERROR at line 1:
+ORA-00947: not enough values
+
+
+SQL> INSERT INTO ACCOUNT VALUES('140','SAVINGS','12022','911');
+INSERT INTO ACCOUNT VALUES('140','SAVINGS','12022','911')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SYSTEM.SYS_C008136) violated - parent key not
+found
+
+
+SQL> INSERT INTO ACCOUNT VALUES('140','SAVINGS','12022.01','911');
+INSERT INTO ACCOUNT VALUES('140','SAVINGS','12022.01','911')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SYSTEM.SYS_C008136) violated - parent key not
+found
+
+
+SQL> desc PERSON;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ P_ID                                      NOT NULL NUMBER(38)
+ PERSON_NAME                                        VARCHAR2(50)
+ DOB                                                DATE
+ GENDER_P                                           VARCHAR2(20)
+
+SQL> INSERT INTO PERSON VALUES('140','KAVI','10-MARCH-2022','M');
+
+1 row created.
+
+SQL> INSERT INTO PERSON VALUES('120','YASH','31-MARCH-2004','M');
+
+1 row created.
+
+SQL> INSERT INTO PERSON VALUES('110','AARUSHI','30-MARCH-2004','F');
+
+1 row created.
+
+SQL> INSERT INTO PERSON VALUES('125','ANANYA','30-DEC-2002','F');
+
+1 row created.
+
+SQL> INSERT INTO PERSON VALUES('160','GAYATRI','16-OCT-2004','F');
+
+1 row created.
+
+SQL> Select * from PERSON;
+
+      P_ID PERSON_NAME                                        DOB
+---------- -------------------------------------------------- ---------
+GENDER_P
+--------------------
+       140 KAVI                                               10-MAR-22
+M
+
+       120 YASH                                               31-MAR-04
+M
+
+       110 AARUSHI                                            30-MAR-04
+F
+
+
+      P_ID PERSON_NAME                                        DOB
+---------- -------------------------------------------------- ---------
+GENDER_P
+--------------------
+       125 ANANYA                                             30-DEC-02
+F
+
+       160 GAYATRI                                            16-OCT-04
+F
+
+
+SQL> INSERT INTO ACCOUNT VALUES('140','SAVINGS','12022.01','10');
+
+1 row created.
+
+SQL> INSERT INTO ACCOUNT VALUES('103','SAVINGS','10562.11','20');
+
+1 row created.
+
+SQL> INSERT INTO ACCOUNT VALUES('123','CURRENT','21879.34','30');
+
+1 row created.
+
+SQL> INSERT INTO ACCOUNT VALUES('198','DEPOSIT','56378.90','40');
+
+1 row created.
+
+SQL> INSERT INTO ACCOUNT VALUES('167','SAVINGS','89642.90','50');
+
+1 row created.
+
+SQL> Select * from ACCOUNT;
+
+      A_ID ACC_TYPE                BALANCE       C_ID
+---------- -------------------- ---------- ----------
+       140 SAVINGS                12022.01         10
+       103 SAVINGS                10562.11         20
+       123 CURRENT                21879.34         30
+       198 DEPOSIT                 56378.9         40
+       167 SAVINGS                 89642.9         50

@@ -1,0 +1,245 @@
+SQL> connect
+Enter user-name: SYSTEM
+Enter password:
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+SQL> connect
+Enter user-name: SYSTEM
+Enter password:
+Connected.
+SQL> create user dbms
+  2
+SQL> grant all privileges to dbms;
+
+Grant succeeded.
+
+SQL> select * from customer;
+
+      C_ID C_NAME                                             DOB
+---------- -------------------------------------------------- ---------
+GENDER     PHONE
+---------- ----------
+        10 GAYU                                               09-DEC-20
+F          0685634267
+
+        20 KAVYA                                              30-MAY-20
+F          6085689467
+
+        30 SWASTIK                                            12-MAR-21
+M          9015689467
+
+
+      C_ID C_NAME                                             DOB
+---------- -------------------------------------------------- ---------
+GENDER     PHONE
+---------- ----------
+        40 KESHAV                                             12-APR-22
+M          9115689467
+
+        50 AKSHAT                                             22-OCT-22
+M          8215689467
+
+
+SQL> CREATE VIEW CUSTOMER_VIEW AS SELECT * FROM CUSTOMER;
+
+View created.
+
+SQL> select * from CUSTOMER_VIEW;
+
+      C_ID C_NAME                                             DOB
+---------- -------------------------------------------------- ---------
+GENDER     PHONE
+---------- ----------
+        10 GAYU                                               09-DEC-20
+F          0685634267
+
+        20 KAVYA                                              30-MAY-20
+F          6085689467
+
+        30 SWASTIK                                            12-MAR-21
+M          9015689467
+
+
+      C_ID C_NAME                                             DOB
+---------- -------------------------------------------------- ---------
+GENDER     PHONE
+---------- ----------
+        40 KESHAV                                             12-APR-22
+M          9115689467
+
+        50 AKSHAT                                             22-OCT-22
+M          8215689467
+
+
+SQL> SELECT C_NAME || 'AND' || GENDER FROM CUSTOMER_VIEW;
+
+C_NAME||'AND'||GENDER
+---------------------------------------------------------------
+GAYUANDF
+KAVYAANDF
+SWASTIKANDM
+KESHAVANDM
+AKSHATANDM
+
+SQL> SELECT C_NAME || ' AND ' || GENDER FROM CUSTOMER_VIEW;
+
+C_NAME||'AND'||GENDER
+-----------------------------------------------------------------
+GAYU AND F
+KAVYA AND F
+SWASTIK AND M
+KESHAV AND M
+AKSHAT AND M
+
+SQL> SELECT * FROM PRODUCT;
+
+    PRO_ID P_NAME                                                  PRICE
+---------- -------------------------------------------------- ----------
+  QUANTITY
+----------
+       111 LUX SPLASH                                             250.02
+        20
+
+       122 AMUL                                                      150
+        15
+
+       152 DARK CHOCOLATE                                          100.1
+        35
+
+
+    PRO_ID P_NAME                                                  PRICE
+---------- -------------------------------------------------- ----------
+  QUANTITY
+----------
+       143 DARK FANTASY                                            56.35
+        50
+
+       134 CHOCOPIE                                               120.08
+        42
+
+
+SQL> CREATE VIEW_NEW AS SELECT * FROM CUSTOMER_VIEW;
+CREATE VIEW_NEW AS SELECT * FROM CUSTOMER_VIEW
+       *
+ERROR at line 1:
+ORA-00901: invalid CREATE command
+
+
+SQL> CREATE VIEW AS SELECT * FROM CUSTOMER_VIEW;
+CREATE VIEW AS SELECT * FROM CUSTOMER_VIEW
+            *
+ERROR at line 1:
+ORA-00999: invalid view name
+
+
+SQL> CREATE VIEW VIEW_NEW AS SELECT * FROM CUSTOMER_VIEW;
+
+View created.
+
+SQL> select * from VIEW_NEW;
+
+      C_ID C_NAME                                             DOB
+---------- -------------------------------------------------- ---------
+GENDER     PHONE
+---------- ----------
+        10 GAYU                                               09-DEC-20
+F          0685634267
+
+        20 KAVYA                                              30-MAY-20
+F          6085689467
+
+        30 SWASTIK                                            12-MAR-21
+M          9015689467
+
+
+      C_ID C_NAME                                             DOB
+---------- -------------------------------------------------- ---------
+GENDER     PHONE
+---------- ----------
+        40 KESHAV                                             12-APR-22
+M          9115689467
+
+        50 AKSHAT                                             22-OCT-22
+M          8215689467
+
+
+SQL> ALTER TABLE CUSTOMER_VIEW
+  2  RENAME C_NAME TO NAME;
+RENAME C_NAME TO NAME
+       *
+ERROR at line 2:
+ORA-14155: missing PARTITION or SUBPARTITION keyword
+
+
+SQL> ALTER TABLE CUSTOMER_VIEW
+  2  RENAME C_NAME AS NAME;
+RENAME C_NAME AS NAME
+       *
+ERROR at line 2:
+ORA-14155: missing PARTITION or SUBPARTITION keyword
+
+
+SQL> DROP VIEW VIEW_NEW;
+
+View dropped.
+
+SQL> select * from VIEW_NEW;
+select * from VIEW_NEW
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select * from CUSTOMER_VIEW;
+
+      C_ID C_NAME                                             DOB
+---------- -------------------------------------------------- ---------
+GENDER     PHONE
+---------- ----------
+        10 GAYU                                               09-DEC-20
+F          0685634267
+
+        20 KAVYA                                              30-MAY-20
+F          6085689467
+
+        30 SWASTIK                                            12-MAR-21
+M          9015689467
+
+
+      C_ID C_NAME                                             DOB
+---------- -------------------------------------------------- ---------
+GENDER     PHONE
+---------- ----------
+        40 KESHAV                                             12-APR-22
+M          9115689467
+
+        50 AKSHAT                                             22-OCT-22
+M          8215689467
+
+
+SQL> CREATE SYNONYM PRO FROM PRODUCT;
+CREATE SYNONYM PRO FROM PRODUCT
+                   *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL> CREATE SYNONYM PRO FOR PRODUCT;
+
+Synonym created.
+
+SQL>    SELECT * FROM CUSTOMER WHERE C_NAME='SWASTIK';
+
+      C_ID C_NAME                                             DOB
+---------- -------------------------------------------------- ---------
+GENDER     PHONE
+---------- ----------
+        30 SWASTIK                                            12-MAR-21
+M          9015689467
+
+
+SQL> CREATE INDEX NAME_IDX ON CUSTOMER(C_NAME);
+
+Index created.
